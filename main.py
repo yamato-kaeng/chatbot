@@ -1,5 +1,4 @@
-# Author: Yamato Kaeng
-# Date: 02/11/2020.
+
 import fasttext
 from pythainlp import word_tokenize
 from fastapi import FastAPI
@@ -19,7 +18,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-model = fasttext.load_model('test.model')
+model = ''
 
 def word_predict(text,topn=4):
     text = ' '.join(word_tokenize(text))
@@ -35,7 +34,14 @@ def word_predict(text,topn=4):
 def main():
     return 'Hello wellcome to yama-service'
 
+@app.get("/load")
+def load_model():
+    global model
+    model = fasttext.load_model('test.model')
+    return True
+
 @app.get("/predict")
 def predict(text:str="อยากสอบถามร้าน มีเบอร์ให้ติดต่อไหม", topn:int=3):
+    global model
     result = word_predict(text, topn)
     return result

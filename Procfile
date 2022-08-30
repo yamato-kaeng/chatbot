@@ -1,1 +1,1 @@
-uvicorn main:app --port 80:80
+web: gunicorn -w 1 -k uvicorn.workers.UvicornWorker main:app
