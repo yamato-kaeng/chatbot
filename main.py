@@ -21,6 +21,7 @@ app.add_middleware(
 model = ''
 
 def word_predict(text,topn=4):
+    global model
     text = ' '.join(word_tokenize(text))
     obj = model.predict(text, k=topn)
     l = []
